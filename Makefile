@@ -1,5 +1,5 @@
 EXEC = forksort
-OBJS = main.o
+OBJS = main.o mergeSort.o
 CCFLAGS = gcc -Wall -std=c99 --pedantic
 CACHE = .cache
 
@@ -19,6 +19,9 @@ ${CACHE}:
 
 main.o: main.c
 	${CCFLAGS} -c main.c
+
+mergeSort.o: mergeSort.c
+	${CCFLAGS} -c mergeSort.c
 
 run: ${EXEC}
 	./${CACHE}/${EXEC}
