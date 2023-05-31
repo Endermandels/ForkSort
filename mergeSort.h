@@ -10,6 +10,6 @@ TODO: Description
 #define MERGE_SORT
 
 void printArray(int*,int);
-int sort(int*,int);
+int process(int*,int);
 
 #endif

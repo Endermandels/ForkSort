@@ -11,12 +11,19 @@ TODO: Description
 #include "mergeSort.h"
 
 int main(int argc, char const *argv[]) {
-    int arr[] = {3, 0, 1, 42, 5};
+    int arr[] = {3};
+    int size = 1;
 
-    int err = sort(arr, 5);
+    printf("Original Array: ");
+    printArray(arr, size);
+
+    int err = sort(arr, size);
     if (err) {
         return err;
     }
+    
+    printf("Sorted Array:   ");
+    printArray(arr, size);
 
     return 0;
 }
