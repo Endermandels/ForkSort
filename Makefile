@@ -1,13 +1,17 @@
+# Fork Sort
+# Elijah Delavar
+# main.c mergeSort.c mergeSort.h Makefile
+
 EXEC = forksort
 OBJS = main.o mergeSort.o
-CCFLAGS = gcc -Wall -std=c99 --pedantic
+CCFLAGS = gcc -Wall -std=gnu11 --pedantic
 CACHE = .cache
 
 ${EXEC}: ${OBJS}
 	${CCFLAGS} -o ${EXEC} ${OBJS}
 	make cache
 
-# if the game cache does not exist, create it
+# if the cache does not exist, create it
 cache: | ${CACHE}
 	mv ${OBJS} ${EXEC} ${CACHE}
 
@@ -28,6 +32,3 @@ run: ${EXEC}
 
 runv: ${EXEC}
 	valgrind ./${CACHE}/${EXEC}
-
-runvs: ${EXEC}
-	valgrind -s ./${CACHE}/${EXEC}

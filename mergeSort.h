@@ -1,15 +1,13 @@
 /*
 Fork Sort
 Elijah Delavar
-TODO: Files
-
-TODO: Description
+main.c mergeSort.c mergeSort.h Makefile
 */
 
 #ifndef MERGE_SORT
 #define MERGE_SORT
 
-void printArray(int*,int);
+void printArray(int*,int,int);
 int process(int*,int);
 
 #endif

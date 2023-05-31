@@ -1,19 +1,23 @@
 /*
 Fork Sort
 Elijah Delavar
-TODO: Files
+main.c mergeSort.c mergeSort.h Makefile
 
-TODO: Description
+Perform merge sort on a given array using two processes and shared memory,
+    only if the array has more than 10000 entries.
+Otherwise, perform normal merge sort.
 */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
-void printArray(int*,int);
+void printArray(int*,int,int);
 int process(int*,int);
 
-void printArray(int *arr, int size) {
-    for (int ii = 0; ii < size; ii++) {
+void printArray(int *arr, int start, int size) {
+    for (int ii = start; ii < size; ii++) {
         printf("%d ", arr[ii]);
     }
     printf("\n");
@@ -88,7 +92,30 @@ void mergeSort(int arr[], int l, int r)
     }
 }
 
+/*
+Split up the merge sort process if dealing with large arrays.
+*/
 int process(int *arr, int size) {
-    mergeSort(arr, 0, size-1);
+    if (size > 10000) {
+        pid_t pid = fork();
+        if (pid < 0) {
+            puts("!!! Child Unsuccessfully Forked !!!");
+            return 1;
+        } else if (pid > 0) {
+            mergeSort(arr, 0, (size/2)-1);
+
+            while (wait(NULL) > 0);
+            puts("Merging...");
+        } else {
+            mergeSort(arr, (size/2), size-1);
+
+            puts("Exiting Child...");
+            exit(EXIT_SUCCESS);
+        }
+
+        merge(arr, 0, (size/2)-1, size-1);
+    } else {
+        mergeSort(arr, 0, size-1);
+    }
     return 0;
 }
